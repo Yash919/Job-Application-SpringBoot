@@ -20,9 +20,9 @@ The application consists of the following components:
 
 ## API Endpoints
 ### Companies Endpoints:
-- GET /companies: Retrieve all companies. ``` http://localhost:8080/companies ```
-- POST /companies: Create a new company. ``` http://localhost:8080/companies ``` 
-- GET /companies/{id}: Retrieve details of a specific company. ``` http://localhost:8080/companies/{id} ```
+- GET /companies: Retrieve all companies. ` http://localhost:8080/companies `
+- POST /companies: Create a new company. ` http://localhost:8080/companies ` 
+- GET /companies/{id}: Retrieve details of a specific company. ` http://localhost:8080/companies/{id} `
 - PUT /companies/{id}: Update details of a specific company. ` http://localhost:8080/companies/{id} `
 - DELETE /companies/{id}: Delete a company. ` http://localhost:8080/companies/{id} `
 

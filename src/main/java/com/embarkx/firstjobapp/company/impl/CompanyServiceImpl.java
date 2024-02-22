@@ -3,7 +3,6 @@ package com.embarkx.firstjobapp.company.impl;
 import com.embarkx.firstjobapp.company.Company;
 import com.embarkx.firstjobapp.company.CompanyRepository;
 import com.embarkx.firstjobapp.company.CompanyService;
-import com.embarkx.firstjobapp.job.Job;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

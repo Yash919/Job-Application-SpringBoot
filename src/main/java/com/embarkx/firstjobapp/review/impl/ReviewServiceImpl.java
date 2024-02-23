@@ -8,6 +8,7 @@ import com.embarkx.firstjobapp.review.ReviewService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReviewServiceImpl implements ReviewService{
@@ -52,11 +53,17 @@ public class ReviewServiceImpl implements ReviewService{
 
     @Override
     public boolean updateReview(Long companyId, Long reviewId, Review updatedReview) {
-        if(companyService.getCompanyById(companyId)!=null){
-            updatedReview.setCompany(companyService.getCompanyById(companyId));
-            updatedReview.setId(reviewId);
-            reviewRepository.save(updatedReview);
-            return true;
+        // Retrieve the review by its ID
+        Optional<Review> optionalReview=reviewRepository.findById(reviewId);
+        if(optionalReview.isPresent()) {
+            Review existingReview = optionalReview.get();
+            // Check if the company ID of the review matches the company ID provided in the path variable
+            if (existingReview.getCompany().getId().equals(companyId)) {
+                updatedReview.setCompany(companyService.getCompanyById(companyId));
+                updatedReview.setId(reviewId);
+                reviewRepository.save(updatedReview);
+                return true;
+            }
         }
         return false;
     }

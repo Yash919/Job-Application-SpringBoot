@@ -45,7 +45,7 @@ public class ReviewController {
         if(isReviewUpdated) {
             return new ResponseEntity<>("Review updated Successfully", HttpStatus.OK);
         }
-        return new ResponseEntity<>("Review not updated", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Review not updated. No review found with ID " + reviewId + " for Company ID " + companyId + ".", HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/reviews/{reviewId}")

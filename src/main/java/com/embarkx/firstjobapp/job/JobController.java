@@ -38,16 +38,17 @@ public class JobController {
     }
 
     @GetMapping("/jobs/{id}")
-    public ResponseEntity<Job> getJobById(@PathVariable Long id){
-
+    public ResponseEntity<?> getJobById(@PathVariable Long id){
+        // ResponseEntity<Job>
         Job job=jobService.getJobById(id);
 
         if(job !=null){
             return new ResponseEntity<>(job,HttpStatus.OK);
+        }else{
+            ErrorResponse errorResponse = new ErrorResponse("No Job present for the ID: "+ id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
         }
         //return new Job(id,"null","null","null","null","null");
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
     }
 
     @DeleteMapping("/jobs/{id}")

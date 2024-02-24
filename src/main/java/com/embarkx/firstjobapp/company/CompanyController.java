@@ -16,8 +16,15 @@ public class CompanyController {
     }
 
     @GetMapping("/companies")
-    public ResponseEntity<List<Company>> getAllCompanies(){
-        return new ResponseEntity<>(companyService.getAllCompanies(),HttpStatus.OK);
+    public ResponseEntity<?> getAllCompanies(){
+        // ResponseEntity<List<Company>>
+        List<Company> companies = companyService.getAllCompanies();
+        if(companies.isEmpty()){
+            ErrorResponse errorResponse = new ErrorResponse("No companies are present. ");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+        }else{
+            return new ResponseEntity<>(companyService.getAllCompanies(),HttpStatus.OK);
+        }
     }
 
     @PutMapping("/companies/{id}")

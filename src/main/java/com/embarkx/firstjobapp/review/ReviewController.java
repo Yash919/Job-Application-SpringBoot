@@ -56,6 +56,6 @@ public class ReviewController {
         if(isReviewDeleted) {
             return new ResponseEntity<>("Review Deleted Successfully", HttpStatus.OK);
         }
-        return new ResponseEntity<>("Review not Deleted", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Review not Deleted. No review found with ID " + reviewId + " for Company ID " + companyId + ".", HttpStatus.NOT_FOUND);
     }
 }

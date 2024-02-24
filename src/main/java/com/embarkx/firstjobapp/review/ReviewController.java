@@ -17,8 +17,16 @@ public class ReviewController {
     }
 
     @GetMapping("/reviews")
-    public ResponseEntity<List<Review>> getAllReviews(@PathVariable Long companyId){
-        return new ResponseEntity<>(reviewService.getAllReviews(companyId), HttpStatus.OK);
+    public ResponseEntity<?> getAllReviews(@PathVariable Long companyId){
+        // ResponseEntity<List<Review>>
+        List<Review> reviews=reviewService.getAllReviews(companyId);
+
+        if(reviews.isEmpty()){
+            ErrorResponse errorResponse = new ErrorResponse("No Reviews are present for the company ID: "+ companyId);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+        }else{
+            return new ResponseEntity<>(reviews,HttpStatus.OK);
+        }
     }
 
     @PostMapping("/reviews")
@@ -33,7 +41,7 @@ public class ReviewController {
 
     @GetMapping("/reviews/{reviewId}")
     public ResponseEntity<?> getReview(@PathVariable Long companyId,@PathVariable Long reviewId){
-
+        // ResponseEntity<Review>
         Review review=reviewService.getReview(companyId, reviewId);
 
         if(review!=null){

@@ -30,8 +30,12 @@ public class CompanyController {
     @PutMapping("/companies/{id}")
     public ResponseEntity<String> updateCompany(@PathVariable Long id, @RequestBody Company company){
 
-        companyService.updateCompany(company,id);
-        return new ResponseEntity<>("Company Updated Successfully of id: "+String.valueOf(id), HttpStatus.OK);
+        boolean check=companyService.updateCompany(company,id);
+        if(check) {
+            return new ResponseEntity<>("Company Updated Successfully of ID: " + id, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("Company with ID: "+id+" is not present. ",HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/companies")

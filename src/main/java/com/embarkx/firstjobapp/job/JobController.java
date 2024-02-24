@@ -66,6 +66,6 @@ public class JobController {
         if(updated){
             return new ResponseEntity<>("Job Updated Successfully id: "+String.valueOf(id),HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Job with ID: "+id+" is not present. No Updation take place",HttpStatus.NOT_FOUND);
     }
 }

@@ -18,9 +18,17 @@ public class JobController {
     }
 
     @GetMapping("/jobs")
-    public ResponseEntity<List<Job>> findAll(){
-        //return new ResponseEntity<>(jobService.findAll(),HttpStatus.OK);
-        return ResponseEntity.ok(jobService.findAll());
+    public ResponseEntity<?> findAll(){
+        // ResponseEntity<List<Job>>
+        // return ResponseEntity.ok(jobService.findAll());
+        List<Job> jobs=jobService.findAll();
+
+        if(jobs.isEmpty()){
+            ErrorResponse errorResponse = new ErrorResponse("No jobs were present currently.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+        }else{
+            return new ResponseEntity<>(jobs,HttpStatus.OK);
+        }
     }
 
     @PostMapping("/jobs")

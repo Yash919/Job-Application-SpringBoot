@@ -54,11 +54,14 @@ public class CompanyController {
     }
 
     @GetMapping("/companies/{id}")
-    public ResponseEntity<Company> getCompany(@PathVariable Long id){
+    public ResponseEntity<?> getCompany(@PathVariable Long id){
+        // ResponseEntity<Company>
         Company company=companyService.getCompanyById(id);
         if(company!=null){
             return new ResponseEntity<>(company,HttpStatus.OK);
+        }else{
+            ErrorResponse errorResponse = new ErrorResponse("There is no Company present with ID: "+id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

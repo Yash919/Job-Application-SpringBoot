@@ -66,8 +66,13 @@ public class JobServiceImpl implements JobService {
          */
         // After JPA
         try {
-            jobRepository.deleteById(id);
-            return true;
+            Optional<Job> jobOptional = jobRepository.findById(id);
+            if(jobOptional.isPresent()){
+                jobRepository.deleteById(id);
+                return true;
+            }else{
+                return false;
+            }
         }
         catch (Exception e){
             return false;

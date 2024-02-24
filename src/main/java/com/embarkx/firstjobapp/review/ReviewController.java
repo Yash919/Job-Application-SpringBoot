@@ -32,9 +32,16 @@ public class ReviewController {
     }
 
     @GetMapping("/reviews/{reviewId}")
-    public ResponseEntity<Review> getReview(@PathVariable Long companyId,@PathVariable Long reviewId){
+    public ResponseEntity<?> getReview(@PathVariable Long companyId,@PathVariable Long reviewId){
 
-        return new ResponseEntity<>(reviewService.getReview(companyId,reviewId),HttpStatus.OK);
+        Review review=reviewService.getReview(companyId, reviewId);
+
+        if(review!=null){
+            return new ResponseEntity<>(review,HttpStatus.OK);
+        } else{
+            ErrorResponse errorResponse = new ErrorResponse("No reviews found for company ID " + companyId + " review ID " + reviewId + ".");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+        }
     }
 
     @PutMapping("/reviews/{reviewId}")
